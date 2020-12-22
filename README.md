@@ -13,17 +13,17 @@ dns.providers.duckdns
 
 To use this module for the ACME DNS challenge, [configure the ACME issuer in your Caddy JSON](https://caddyserver.com/docs/json/apps/tls/automation/policies/issuer/acme/) like so:
 
-```
+```json
 {
-	"module": "acme",
-	"challenges": {
-		"dns": {
-			"provider": {
-				"name": "duckdns",
-				"api_token": "YOUR_DUCKDNS_API_TOKEN"
-			}
-		}
+  "module": "acme",
+  "challenges": {
+    "dns": {
+      "provider": {
+	"name": "duckdns",
+	"api_token": "YOUR_DUCKDNS_API_TOKEN"
 	}
+    }
+  }
 }
 ```
 
@@ -31,7 +31,7 @@ or with the Caddyfile:
 
 ```
 tls {
-	dns cloudflare {env.DUCKDNS_API_TOKEN}
+  dns cloudflare {env.DUCKDNS_API_TOKEN}
 }
 ```
 
