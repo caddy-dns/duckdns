@@ -18,8 +18,8 @@ duckdns [<api_token>] {
 }
 ```
 
-`api_token` may be specified as an argument to the `duckdns` directive, or in the body.
-`override_domain` is optional; see "Challenge delegation" below.
+- `api_token` may be specified as an argument to the `duckdns` directive, or in the body.
+- `override_domain` is optional; see "Challenge delegation" below.
 
 ## Config examples
 
