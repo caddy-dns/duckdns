@@ -25,6 +25,7 @@ func (Provider) CaddyModule() caddy.ModuleInfo {
 //
 // duckdns [<api_token>] {
 //     api_token <api_token>
+//     override_domain <duckdns_domain>
 // }
 //
 func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
@@ -39,10 +40,24 @@ func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 		for nesting := d.Nesting(); d.NextBlock(nesting); {
 			switch d.Val() {
 			case "api_token":
+				if !d.NextArg() {
+					return d.ArgErr()
+				}
 				if p.Provider.APIToken != "" {
 					return d.Err("API token already set")
 				}
 				p.Provider.APIToken = repl.ReplaceAll(d.Val(), "")
+				if d.NextArg() {
+					return d.ArgErr()
+				}
+			case "override_domain":
+				if !d.NextArg() {
+					return d.ArgErr()
+				}
+				if p.Provider.OverrideDomain != "" {
+					return d.Err("Override domain already set")
+				}
+				p.Provider.OverrideDomain = repl.ReplaceAll(d.Val(), "")
 				if d.NextArg() {
 					return d.ArgErr()
 				}
