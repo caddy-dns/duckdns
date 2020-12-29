@@ -9,6 +9,18 @@ This package contains a DNS provider module for [Caddy](https://github.com/caddy
 dns.providers.duckdns
 ```
 
+## Caddyfile definition
+
+```
+duckdns [<api_token>] {
+    api_token <api_token>
+    override_domain <duckdns_domain>
+}
+```
+
+`api_token` may be specified as an argument to the `duckdns` directive, or in the body.
+`override_domain` is optional; see "Challenge delegation" below.
+
 ## Config examples
 
 To use this module for the ACME DNS challenge, [configure the ACME issuer in your Caddy JSON](https://caddyserver.com/docs/json/apps/tls/automation/policies/issuer/acme/) like so:
@@ -20,7 +32,8 @@ To use this module for the ACME DNS challenge, [configure the ACME issuer in you
 		"dns": {
 			"provider": {
 				"name": "duckdns",
-				"api_token": "YOUR_DUCKDNS_API_TOKEN"
+				"api_token": "YOUR_DUCKDNS_API_TOKEN",
+				"override_domain": "OPTIONAL_DUCKDNS_DOMAIN"
 			}
 		}
 	}
