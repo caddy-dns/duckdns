@@ -306,8 +306,8 @@ github.com/kylelemons/godebug v1.1.0/go.mod h1:9/0rRGxNHcop5bhtWyNeEfOS8JIWk580+
 github.com/letsencrypt/pkcs11key v2.0.1-0.20170608213348-396559074696+incompatible/go.mod h1:iGYXKqDXt0cpBthCHdr9ZdsQwyGlYFh/+8xa4WzIQ34=
 github.com/lib/pq v1.1.1/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.2.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
-github.com/libdns/duckdns v0.0.0-20201222042124-b3088d77f212 h1:8ITVE/Q0mRFBYc2S3C1uSVZspKsGrZm+G6z/mwWlEhw=
-github.com/libdns/duckdns v0.0.0-20201222042124-b3088d77f212/go.mod h1:5vIaKxVKVk0yCvK7pBXTBB/p7YPUXDeQSgoYUSqmd9o=
+github.com/libdns/duckdns v0.0.0-20201229185916-cd405ff644b9 h1:GFDYvMtLuOZlNlTeUHAh5ZjtDdBHbdHKJNdWurygPtw=
+github.com/libdns/duckdns v0.0.0-20201229185916-cd405ff644b9/go.mod h1:5vIaKxVKVk0yCvK7pBXTBB/p7YPUXDeQSgoYUSqmd9o=
 github.com/libdns/libdns v0.0.0-20200430163404-ee2c42449104/go.mod h1:yQCXzk1lEZmmCPa857bnk4TsOiqYasqpyOEeSObbb40=
 github.com/libdns/libdns v0.1.0 h1:0ctCOrVJsVzj53mop1angHp/pE3hmAhP7KiHvR0HD04=
 github.com/libdns/libdns v0.1.0/go.mod h1:yQCXzk1lEZmmCPa857bnk4TsOiqYasqpyOEeSObbb40=
