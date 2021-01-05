@@ -21,6 +21,15 @@ func (Provider) CaddyModule() caddy.ModuleInfo {
 	}
 }
 
+// Before using the provider config, resolve placeholders in the API token.
+// Implements caddy.Provisioner.
+func (p *Provider) Provision(ctx caddy.Context) error {
+	repl := caddy.NewReplacer()
+	p.Provider.APIToken = repl.ReplaceAll(p.Provider.APIToken, "")
+	p.Provider.OverrideDomain = repl.ReplaceAll(p.Provider.OverrideDomain, "")
+	return nil
+}
+
 // UnmarshalCaddyfile sets up the DNS provider from Caddyfile tokens. Syntax:
 //
 // duckdns [<api_token>] {
@@ -29,10 +38,9 @@ func (Provider) CaddyModule() caddy.ModuleInfo {
 // }
 //
 func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
-	repl := caddy.NewReplacer()
 	for d.Next() {
 		if d.NextArg() {
-			p.Provider.APIToken = repl.ReplaceAll(d.Val(), "")
+			p.Provider.APIToken = d.Val()
 		}
 		if d.NextArg() {
 			return d.ArgErr()
@@ -46,7 +54,7 @@ func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 				if p.Provider.APIToken != "" {
 					return d.Err("API token already set")
 				}
-				p.Provider.APIToken = repl.ReplaceAll(d.Val(), "")
+				p.Provider.APIToken = d.Val()
 				if d.NextArg() {
 					return d.ArgErr()
 				}
@@ -57,7 +65,7 @@ func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 				if p.Provider.OverrideDomain != "" {
 					return d.Err("Override domain already set")
 				}
-				p.Provider.OverrideDomain = repl.ReplaceAll(d.Val(), "")
+				p.Provider.OverrideDomain = d.Val()
 				if d.NextArg() {
 					return d.ArgErr()
 				}
@@ -72,5 +80,8 @@ func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 	return nil
 }
 
-// Interface guard
-var _ caddyfile.Unmarshaler = (*Provider)(nil)
+// Interface guards
+var (
+	_ caddyfile.Unmarshaler = (*Provider)(nil)
+	_ caddy.Provisioner     = (*Provider)(nil)
+)
