@@ -15,11 +15,13 @@ dns.providers.duckdns
 duckdns [<api_token>] {
     api_token <api_token>
     override_domain <duckdns_domain>
+	resolver <resolver>
 }
 ```
 
 - `api_token` may be specified as an argument to the `duckdns` directive, or in the body.
 - `override_domain` is optional; see [Challenge delegation](#challenge-delegation) below.
+- `resolver` is the DNS resolver to use to determine DuckDNS's current records. By default, `8.8.8.8:53` is used, i.e. Google's public DNS server. Change this if your server cannot reach Google's DNS servers.
 
 ## Config examples
 
@@ -33,7 +35,8 @@ To use this module for the ACME DNS challenge, [configure the ACME issuer in you
 			"provider": {
 				"name": "duckdns",
 				"api_token": "YOUR_DUCKDNS_API_TOKEN",
-				"override_domain": "OPTIONAL_DUCKDNS_DOMAIN"
+				"override_domain": "OPTIONAL_DUCKDNS_DOMAIN",
+				"resolver": "8.8.8.8:53"
 			}
 		}
 	}

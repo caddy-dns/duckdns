@@ -27,16 +27,17 @@ func (p *Provider) Provision(ctx caddy.Context) error {
 	repl := caddy.NewReplacer()
 	p.Provider.APIToken = repl.ReplaceAll(p.Provider.APIToken, "")
 	p.Provider.OverrideDomain = repl.ReplaceAll(p.Provider.OverrideDomain, "")
+	p.Provider.Resolver = repl.ReplaceAll(p.Provider.Resolver, "")
 	return nil
 }
 
 // UnmarshalCaddyfile sets up the DNS provider from Caddyfile tokens. Syntax:
 //
-// duckdns [<api_token>] {
-//     api_token <api_token>
-//     override_domain <duckdns_domain>
-// }
-//
+//	duckdns [<api_token>] {
+//	    api_token <api_token>
+//	    override_domain <duckdns_domain>
+//	    resolver <resolver>
+//	}
 func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 	for d.Next() {
 		if d.NextArg() {
@@ -58,6 +59,7 @@ func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 				if d.NextArg() {
 					return d.ArgErr()
 				}
+
 			case "override_domain":
 				if !d.NextArg() {
 					return d.ArgErr()
@@ -69,13 +71,23 @@ func (p *Provider) UnmarshalCaddyfile(d *caddyfile.Dispenser) error {
 				if d.NextArg() {
 					return d.ArgErr()
 				}
+
+			case "resolver":
+				if !d.NextArg() {
+					return d.ArgErr()
+				}
+				if p.Provider.Resolver != "" {
+					return d.Err("Resolver already set")
+				}
+				p.Provider.Resolver = d.Val()
+
 			default:
 				return d.Errf("unrecognized subdirective '%s'", d.Val())
 			}
 		}
 	}
 	if p.Provider.APIToken == "" {
-		return d.Err("missing API token")
+		return d.Err("DuckDNS missing API token")
 	}
 	return nil
 }
