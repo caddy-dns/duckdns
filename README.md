@@ -13,8 +13,8 @@ dns.providers.duckdns
 
 ```
 duckdns [<api_token>] {
-    api_token <api_token>
-    override_domain <duckdns_domain>
+	api_token <api_token>
+	override_domain <duckdns_domain>
 	resolver <resolver>
 }
 ```
